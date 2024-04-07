@@ -10,10 +10,6 @@ class LocationModel extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $table = 'location';
+    protected $table = 'locations';
 
-    public function products()
-    {
-        return $this->hasMany(ProductModel::class, 'location_id');
-    }
 }

@@ -12,18 +12,6 @@ class ProductModel extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $table = 'product';
+    protected $table = 'products';
 
-    public function type()
-    {
-        return $this->belongsTo(TypeModel::class);
-    }
-    public function supplier()
-    {
-        return $this->belongsTo(SupplierModel::class);
-    }
-    public function location()
-    {
-        return $this->belongsTo(LocationModel::class);
-    }
 }

@@ -13,10 +13,20 @@ class TypeSeeder extends Seeder
      */
     public function run(): void
     {
-        // buat 10
-        for ($i = 0; $i < 10; $i++) {
-            TypeModel::create([
-                'name' => fake()->name(),
+        $types = [
+            'Elektronik',
+            'Pakaian',
+            'Alat-alat Rumah Tangga',
+            'Buku dan Media',
+            'Makanan dan Minuman',
+            'Alat-alat Bangunan',
+            'Perlengkapan Kesehatan',
+            'Kosmetik',
+            'Otomotif',
+            'Mainan dan Hobi'
+        ];
+        foreach ($types as $value) {
+            TypeModel::create(['name_type' => $value
             ]);
         }
     }

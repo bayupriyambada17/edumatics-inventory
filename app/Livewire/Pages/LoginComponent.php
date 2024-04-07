@@ -16,20 +16,23 @@ class LoginComponent extends Component
             'password' => 'required'
         ]);
 
-        if (auth()->attempt([
+        $credentials = [
             'email' => $this->email,
             'password' => $this->password
-        ])) {
-            session()->regenerate();
-            return redirect()->route('dashboard');
-        } else {
-            session()->flash('error', 'Invalid credentials');
-            return redirect()->route('login');
+        ];
+
+        if (auth()->attempt($credentials)) {
+            $user = auth()->user();
+            if ($user->role == 'administrator') {
+                return redirect()->route('administrator.dashboard');
+            }
         }
+
+
     }
 
     public function render()
     {
-        return view('livewire.pages.login-component')->layout('template.auth.auth');
+        return view('livewire.pages.login-component')->layout('components.layouts.auth');
     }
 }

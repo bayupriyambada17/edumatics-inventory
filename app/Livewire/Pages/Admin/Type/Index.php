@@ -27,12 +27,12 @@ class Index extends Component
     }
     public function render()
     {
-        $types = TypeModel::where('name', 'like', '%' . $this->search . '%')
-            ->orderBy('created_at', 'desc')
-            ->withCount('products')
-            ->paginate($this->perPage);
+        // $types = TypeModel::where('name', 'like', '%' . $this->search . '%')
+        //     ->orderBy('created_at', 'desc')
+        //     ->withCount('products')
+        //     ->paginate($this->perPage);
         return view('livewire.pages.admin.type.index', [
-            'types' => $types
-        ])->layout('template.admin.main');
+            // 'types' => $types
+        ]);
     }
 }

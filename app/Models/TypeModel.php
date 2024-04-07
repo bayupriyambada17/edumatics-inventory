@@ -11,10 +11,7 @@ class TypeModel extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $table = 'type';
+    protected $table = 'types';
 
-    public function products()
-    {
-        return $this->hasMany(ProductModel::class, 'type_id');
-    }
+
 }
