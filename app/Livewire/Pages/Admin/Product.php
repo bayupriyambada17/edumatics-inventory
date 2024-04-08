@@ -2,18 +2,16 @@
 
 namespace App\Livewire\Pages\Admin;
 
+use App\Models\ProductModel;
 use Livewire\Component;
-use App\Models\TypeModel;
 use Livewire\WithPagination;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-class Types extends Component
+class Product extends Component
 {
-    public $name_type;
-    public $typesId;
-
+    public $name_product, $code_product;
+    public $productId;
     public $search = '';
-
     use WithPagination;
     use LivewireAlert;
     protected $paginationTheme = 'bootstrap';
@@ -32,17 +30,20 @@ class Types extends Component
     public function saveForm()
     {
         $this->validate([
-            'name_type' => 'required|min:3|max:255'
+            'name_product' => 'required|min:1|max:255',
+            'code_product' => 'required|integer'
         ]);
-        if ($this->typesId) {
-            $type = TypeModel::find($this->typesId);
+        if ($this->productId) {
+            $type = ProductModel::find($this->productId);
             $type->update([
-                'name_type' => $this->name_type
+                'name_product' => $this->name_product,
+                'code_product' => $this->code_product
             ]);
             $this->notification('success', 'Successfully Update Data');
         } else {
-            TypeModel::create([
-                'name_type' => $this->name_type
+            ProductModel::create([
+                'name_product' => $this->name_product, 'code_product' => $this->code_product
+
             ]);
             $this->notification('success', 'Successfully Create Data');
         }
@@ -52,27 +53,29 @@ class Types extends Component
 
     public function edit($id)
     {
-        $type = TypeModel::find($id);
-        $this->typesId = $type->id;
-        $this->name_type = $type->name_type;
+        $type = ProductModel::find($id);
+        $this->productId = $type->id;
+        $this->name_product = $type->name_product;
+        $this->code_product = $type->code_product;
         $this->openModal();
     }
 
     public function resetFields()
     {
-        $this->typesId = null;
-        $this->name_type = '';
+        $this->productId = null;
+        $this->name_product = '';
+        $this->code_product = '';
     }
 
     public function destroy($id)
     {
-        TypeModel::destroy($id);
+        ProductModel::destroy($id);
         $this->notification('success', 'Successfully Delete Data');
     }
     public function render()
     {
-        $types = TypeModel::where('name_type', 'like', '%' . $this->search . '%')->latest()->paginate(10);
-        return view('livewire.pages.admin.types', compact('types'));
+        $products = ProductModel::where('name_product', 'like', '%' . $this->search . '%')->latest()->paginate(10);
+        return view('livewire.pages.admin.Product', compact('products'));
     }
 
     protected function notification($type, $message)

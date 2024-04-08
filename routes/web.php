@@ -1,6 +1,8 @@
 <?php
 
 use App\Livewire\Pages\Admin\DashboardComponent;
+use App\Livewire\Pages\Admin\Inventory\ListInventory;
+use App\Livewire\Pages\Admin\Location;
 use App\Livewire\Pages\Admin\Type\Index as TypeIndex;
 use App\Livewire\Pages\Admin\Type\Create as TypeCreate;
 use App\Livewire\Pages\Admin\Type\Edit as TypeEdit;
@@ -8,7 +10,7 @@ use App\Livewire\Pages\Admin\Type\Edit as TypeEdit;
 use App\Livewire\Pages\Admin\Location\Index as LocationIndex;
 use App\Livewire\Pages\Admin\Location\Create as LocationCreate;
 use App\Livewire\Pages\Admin\Location\Edit as LocationEdit;
-
+use App\Livewire\Pages\Admin\Product;
 use App\Livewire\Pages\Admin\Supplier\Index as SupplierIndex;
 use App\Livewire\Pages\Admin\Supplier\Create as SupplierCreate;
 use App\Livewire\Pages\Admin\Supplier\Edit as SupplierEdit;
@@ -27,6 +29,9 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['checkAdministrator'])->name('administrator.')->prefix('administrator')->group(function () {
         Route::get('/dashboard', DashboardComponent::class)->name('dashboard');
         Route::get('/types', Types::class)->name('types');
+        Route::get('/locations', Location::class)->name('locations');
+        Route::get('/products', Product::class)->name('products');
+        Route::get('/inventory/list', ListInventory::class)->name('inventoryList');
     });
     // Route::get('/dashboard', DashboardComponent::class)->name('dashboard');
     // Route::prefix('type')->group(function () {

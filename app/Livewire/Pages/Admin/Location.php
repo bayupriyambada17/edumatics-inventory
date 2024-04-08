@@ -2,15 +2,15 @@
 
 namespace App\Livewire\Pages\Admin;
 
+use App\Models\LocationModel;
 use Livewire\Component;
-use App\Models\TypeModel;
 use Livewire\WithPagination;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-class Types extends Component
+class Location extends Component
 {
-    public $name_type;
-    public $typesId;
+    public $location;
+    public $locationId;
 
     public $search = '';
 
@@ -32,17 +32,17 @@ class Types extends Component
     public function saveForm()
     {
         $this->validate([
-            'name_type' => 'required|min:3|max:255'
+            'location' => 'required|min:1|max:255'
         ]);
-        if ($this->typesId) {
-            $type = TypeModel::find($this->typesId);
+        if ($this->locationId) {
+            $type = LocationModel::find($this->locationId);
             $type->update([
-                'name_type' => $this->name_type
+                'location' => $this->location
             ]);
             $this->notification('success', 'Successfully Update Data');
         } else {
-            TypeModel::create([
-                'name_type' => $this->name_type
+            LocationModel::create([
+                'location' => $this->location
             ]);
             $this->notification('success', 'Successfully Create Data');
         }
@@ -52,27 +52,27 @@ class Types extends Component
 
     public function edit($id)
     {
-        $type = TypeModel::find($id);
-        $this->typesId = $type->id;
-        $this->name_type = $type->name_type;
+        $type = LocationModel::find($id);
+        $this->locationId = $type->id;
+        $this->location = $type->location;
         $this->openModal();
     }
 
     public function resetFields()
     {
-        $this->typesId = null;
-        $this->name_type = '';
+        $this->locationId = null;
+        $this->location = '';
     }
 
     public function destroy($id)
     {
-        TypeModel::destroy($id);
+        LocationModel::destroy($id);
         $this->notification('success', 'Successfully Delete Data');
     }
     public function render()
     {
-        $types = TypeModel::where('name_type', 'like', '%' . $this->search . '%')->latest()->paginate(10);
-        return view('livewire.pages.admin.types', compact('types'));
+        $locations = LocationModel::where('location', 'like', '%' . $this->search . '%')->latest()->paginate(10);
+        return view('livewire.pages.admin.Location', compact('locations'));
     }
 
     protected function notification($type, $message)

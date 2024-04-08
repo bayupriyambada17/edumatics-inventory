@@ -1,4 +1,4 @@
-@section('pageTitle', 'Types')
+@section('pageTitle', 'Locations')
 
 <div>
     <div class="row mb-3">
@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h5 class="m-0">List Type</h5>
+                        <h5 class="m-0">List Locations</h5>
                     </div>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">
                         Tambah Data
@@ -32,18 +32,18 @@
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                @foreach ($types as $type)
+                                @foreach ($locations as $location)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $type->name_type }}</td>
+                                        <td>{{ $location->location }}</td>
                                         <td class="text-center justify-content-end">
-                                            <button type="button" wire:click="edit({{ $type->id }})"
+                                            <button type="button" wire:click="edit({{ $location->id }})"
                                                 class="btn btn-icon btn-outline-info">
                                                 <span class="tf-icons bx bx-edit-alt"></span>
                                             </button>
                                             <button
                                                 onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
-                                                wire:click="destroy({{ $type->id }})" type="button"
+                                                wire:click="destroy({{ $location->id }})" type="button"
                                                 class="btn btn-icon btn-outline-danger">
                                                 <span class="tf-icons bx bx-trash"></span>
                                             </button>
@@ -53,7 +53,7 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-end">
-                            {{ $types->links() }}
+                            {{ $locations->links() }}
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    @include('livewire.pages.admin.form.typesForm')
+    @include('livewire.pages.admin.form.locationForm')
 </div>
 
 @push('js')

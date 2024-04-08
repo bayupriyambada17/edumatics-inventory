@@ -27,8 +27,8 @@ class ProductsSeeder extends Seeder
         ];
 
         foreach ($productNames as $value) {
-            ProductModel::create([
-                'name_product' => $value
+            ProductModel::create(['name_product' => $value,
+                'code_product' => rand(1000, 9999)
             ]);
         }
     }

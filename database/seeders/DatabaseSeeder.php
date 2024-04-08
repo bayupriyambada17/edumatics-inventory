@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\TypeSeeder;
+use Database\Seeders\LocationSeeder;
+use Database\Seeders\ProductsSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +27,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'warehouse@inventory.com',
             'password' => bcrypt('edumatics'),
             'role' => 'warehouse',
+        ]);
+
+        $this->call([
+            LocationSeeder::class,
+            ProductsSeeder::class,
+            TypeSeeder::class,
         ]);
     }
 }
