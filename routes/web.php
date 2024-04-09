@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Pages\Admin\DashboardComponent;
+use App\Livewire\Pages\Admin\Inventory\InInventory;
 use App\Livewire\Pages\Admin\Inventory\ListInventory;
 use App\Livewire\Pages\Admin\Location;
 use App\Livewire\Pages\Admin\Type\Index as TypeIndex;
@@ -32,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/locations', Location::class)->name('locations');
         Route::get('/products', Product::class)->name('products');
         Route::get('/inventory/list', ListInventory::class)->name('inventoryList');
+        Route::get('/inventory/in', InInventory::class)->name('inventoryIn');
     });
     // Route::get('/dashboard', DashboardComponent::class)->name('dashboard');
     // Route::prefix('type')->group(function () {

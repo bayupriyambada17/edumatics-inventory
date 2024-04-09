@@ -10,4 +10,9 @@ class InventoryInModel extends Model
     use HasFactory;
     protected $table = 'inventory_in';
     protected $guarded = ['id'];
+
+    public function listInventory()
+    {
+        return $this->hasMany(InventoryModel::class, 'inventory_id', 'id');
+    }
 }

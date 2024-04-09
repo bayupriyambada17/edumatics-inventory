@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Pages\Admin\Inventory;
 
+use App\Helpers\ConstantaHelper;
+use App\Helpers\NotificationHelper;
 use App\Models\InventoryModel;
 use App\Models\LocationModel;
 use App\Models\ProductModel;
@@ -30,8 +32,6 @@ class ListInventory extends Component
         $this->dispatch('openModal');
     }
 
-
-
     public function closeModal()
     {
         $this->dispatch('closeModal');
@@ -54,13 +54,18 @@ class ListInventory extends Component
             'type_id' => $this->type_id,
             'price' => $this->price,
         ];
-        if ($this->inventoryId) {
-            $type = InventoryModel::find($this->inventoryId);
-            $type->update($fieldsForm);
-            $this->notification('success', 'Successfully Update Data');
-        } else {
-            InventoryModel::create($fieldsForm);
-            $this->notification('success', 'Successfully Create Data');
+        try {
+            if ($this->inventoryId) {
+                $type = InventoryModel::find($this->inventoryId);
+                $type->update($fieldsForm);
+                NotificationHelper::notification($this, 'success', ConstantaHelper::updated);
+            } else {
+                InventoryModel::create($fieldsForm);
+                NotificationHelper::notification($this, 'success', ConstantaHelper::created);
+            }
+        } catch (\Throwable $th) {
+            NotificationHelper::notification($this, 'error', $th->getMessage());
+
         }
         $this->resetFields();
         $this->closeModal();
@@ -91,7 +96,8 @@ class ListInventory extends Component
     public function destroy($id)
     {
         InventoryModel::destroy($id);
-        $this->notification('success', 'Successfully Delete Data');
+        NotificationHelper::notification($this, 'success', ConstantaHelper::deleted);
+
     }
     public function render()
     {
@@ -109,14 +115,5 @@ class ListInventory extends Component
         $types = TypeModel::get();
         $locations = LocationModel::get();
         return view('livewire.pages.admin.inventory.list-inventory', compact('inventories', 'products', 'types', 'locations'));
-    }
-
-    protected function notification($type, $message)
-    {
-        $this->alert($type, $message, [
-            'position' => 'top-end',
-            'timer' => 3000,
-            'toast' => true,
-        ]);
     }
 }

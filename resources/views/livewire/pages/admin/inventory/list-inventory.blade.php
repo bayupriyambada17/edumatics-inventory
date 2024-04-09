@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h5 class="m-0">List List Inventory</h5>
+                        <h5 class="m-0">List Inventory</h5>
                     </div>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">
                         Tambah Data
